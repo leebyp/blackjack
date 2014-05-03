@@ -31,8 +31,7 @@
           model: card
         }).$el;
       }));
-      this.$('.score').text(this.collection.printScores());
-      return console.log(this.collection.scores());
+      return this.$('.score').text(this.collection.printScores());
     };
 
     return HandView;

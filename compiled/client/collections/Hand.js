@@ -33,7 +33,7 @@
     Hand.prototype.scores = function() {
       var hasAce, score;
       hasAce = this.reduce(function(memo, card) {
-        return memo || card.get('value') === 1;
+        return memo || (card.get('value') === 1 && card.get('revealed'));
       }, false);
       score = this.reduce(function(score, card) {
         return score + (card.get('revealed') ? card.get('value') : 0);
