@@ -19,7 +19,7 @@
 
     Hand.prototype.hit = function() {
       this.add(this.deck.pop()).last();
-      return this.outcome();
+      return this.checkBust();
     };
 
     Hand.prototype.scores = function() {
@@ -30,13 +30,16 @@
       score = this.reduce(function(score, card) {
         return score + (card.get('revealed') ? card.get('value') : 0);
       }, 0);
-      if (score > 21) {
-        return ['BUST'];
-      }
       if (hasAce) {
         return [score, score + 10];
       } else {
         return [score];
+      }
+    };
+
+    Hand.prototype.checkBust = function() {
+      if (this.scores()[0] > 21) {
+        return this.trigger('busted', this);
       }
     };
 

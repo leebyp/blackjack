@@ -6,6 +6,7 @@ class window.HandView extends Backbone.View
   template: _.template '<h2><% if(isDealer){ %>Dealer<% }else{ %>You<% } %> (<span class="score"></span>)</h2>'
 
   initialize: ->
+    @collection.on 'busted', => @gameEnd()
     @collection.on 'add remove change', => @render()
     @render()
 
@@ -16,3 +17,7 @@ class window.HandView extends Backbone.View
       new CardView(model: card).$el
     @$('.score').text @collection.scores()[0]
 
+  gameEnd: ->
+    @$el.append '<div>Game Over</div>'
+    $('.hit-button').attr('disabled', true)
+    $('.stand-button').attr('disabled', true)
