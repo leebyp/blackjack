@@ -9,7 +9,7 @@ class window.Hand extends Backbone.Collection
     if @isDealer?
       @checkDealer()
     else
-      @checkBust()
+      @checkPlayer()
 
   stand: ->
     @trigger 'stood',@
@@ -26,13 +26,28 @@ class window.Hand extends Backbone.Collection
     , 0
     if hasAce then [score, score + 10] else [score]
 
-  checkBust: ->
+  checkPlayer: ->
     if @scores()[0] > 21 then @trigger 'playerLoses', @
 
   checkDealer: ->
-    dealerScore = @scores().reverse()
+    dealerScore = @scores()
     length = dealerScore.length
+    if dealerScore[0] > 21
+      @trigger 'playerWins', @
+      return
+    if dealerScore[length-1] < 17
+      @hit()
+      return
     for score in dealerScore
-      if score < 17 then @hit()
-      if 17 <= score <= 21 then @trigger 'checkGameOutcome',@
-      if score > 21 then @trigger 'playerWins', @
+      if 17 <= score <= 21
+        @trigger 'checkGameOutcome',@
+        return
+        
+
+
+    # for score in dealerScore
+    #   if score < 17 then @hit()
+    #   if 17 <= score <= 21
+    #     @trigger 'checkGameOutcome',@
+    #     console.log(1)
+    #   if score > 21 and length is 2 then @hit() else @trigger 'checkGameOutcome',@ 

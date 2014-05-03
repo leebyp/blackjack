@@ -15,16 +15,6 @@
     HandView.prototype.template = _.template('<h2><% if(isDealer){ %>Dealer<% }else{ %>You<% } %> (<span class="score"></span>)</h2>');
 
     HandView.prototype.initialize = function() {
-      this.collection.on('playerLoses', (function(_this) {
-        return function() {
-          return _this.gameEnd('loses');
-        };
-      })(this));
-      this.collection.on('playerWins', (function(_this) {
-        return function() {
-          return _this.gameEnd('wins');
-        };
-      })(this));
       this.collection.on('add remove change', (function(_this) {
         return function() {
           return _this.render();
@@ -42,12 +32,6 @@
         }).$el;
       }));
       return this.$('.score').text(this.collection.scores()[0]);
-    };
-
-    HandView.prototype.gameEnd = function(outcome) {
-      this.$el.append('<div>Game Over</div><div>Player ' + outcome + '</div>');
-      $('.hit-button').attr('disabled', true);
-      return $('.stand-button').attr('disabled', true);
     };
 
     return HandView;

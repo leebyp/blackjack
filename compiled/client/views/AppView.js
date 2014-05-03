@@ -32,6 +32,11 @@
           return _this.gameEnd('loses');
         };
       })(this));
+      this.model.on('playerTies', (function(_this) {
+        return function() {
+          return _this.gameEnd('ties');
+        };
+      })(this));
       return this.render();
     };
 
@@ -47,7 +52,7 @@
     };
 
     AppView.prototype.gameEnd = function(outcome) {
-      this.$el.append('<div>Game Over</div><div>Player ' + outcome + '</div>');
+      $('body').append('<div>Game Over</div><div>Player ' + outcome + '</div>');
       $('.hit-button').attr('disabled', true);
       return $('.stand-button').attr('disabled', true);
     };
