@@ -14,7 +14,38 @@
       var deck;
       this.set('deck', deck = new Deck());
       this.set('playerHand', deck.dealPlayer());
-      return this.set('dealerHand', deck.dealDealer());
+      this.set('dealerHand', deck.dealDealer());
+      this.get('playerHand').on('stood', (function(_this) {
+        return function() {
+          return _this.get('dealerHand').hit();
+        };
+      })(this));
+      return this.get('dealerHand').on('checkGameOutcome', (function(_this) {
+        return function() {
+          return _this.checkGameOutcome();
+        };
+      })(this));
+    };
+
+    App.prototype.checkGameOutcome = function() {
+      var dealerScores, key1, key2, playerScores, value1, value2, _i, _j, _len, _len1;
+      playerScores = this.get('playerHand').scores();
+      dealerScores = this.get('dealerHand').scores();
+      for (key1 = _i = 0, _len = playerScores.length; _i < _len; key1 = ++_i) {
+        value1 = playerScores[key1];
+        if (value1 <= 21) {
+          for (key2 = _j = 0, _len1 = dealerScores.length; _j < _len1; key2 = ++_j) {
+            value2 = dealerScores[key2];
+            if (value2 <= 21) {
+              if (value1 > value2) {
+                this.trigger('playerWins', this);
+                return;
+              }
+            }
+          }
+        }
+      }
+      return this.trigger('playerLoses', this);
     };
 
     return App;

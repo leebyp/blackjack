@@ -22,6 +22,16 @@
     };
 
     AppView.prototype.initialize = function() {
+      this.model.on('playerWins', (function(_this) {
+        return function() {
+          return _this.gameEnd('wins');
+        };
+      })(this));
+      this.model.on('playerLoses', (function(_this) {
+        return function() {
+          return _this.gameEnd('loses');
+        };
+      })(this));
       return this.render();
     };
 
@@ -34,6 +44,12 @@
       return this.$('.dealer-hand-container').html(new HandView({
         collection: this.model.get('dealerHand')
       }).el);
+    };
+
+    AppView.prototype.gameEnd = function(outcome) {
+      this.$el.append('<div>Game Over</div><div>Player ' + outcome + '</div>');
+      $('.hit-button').attr('disabled', true);
+      return $('.stand-button').attr('disabled', true);
     };
 
     return AppView;

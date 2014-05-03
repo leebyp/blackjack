@@ -19,7 +19,15 @@
 
     Hand.prototype.hit = function() {
       this.add(this.deck.pop()).last();
-      return this.checkBust();
+      if (this.isDealer != null) {
+        return this.checkDealer();
+      } else {
+        return this.checkBust();
+      }
+    };
+
+    Hand.prototype.stand = function() {
+      return this.trigger('stood', this);
     };
 
     Hand.prototype.scores = function() {
@@ -39,8 +47,30 @@
 
     Hand.prototype.checkBust = function() {
       if (this.scores()[0] > 21) {
-        return this.trigger('busted', this);
+        return this.trigger('playerLoses', this);
       }
+    };
+
+    Hand.prototype.checkDealer = function() {
+      var dealerScore, length, score, _i, _len, _results;
+      dealerScore = this.scores().reverse();
+      length = dealerScore.length;
+      _results = [];
+      for (_i = 0, _len = dealerScore.length; _i < _len; _i++) {
+        score = dealerScore[_i];
+        if (score < 17) {
+          this.hit();
+        }
+        if ((17 <= score && score <= 21)) {
+          this.trigger('checkGameOutcome', this);
+        }
+        if (score > 21) {
+          _results.push(this.trigger('playerWins', this));
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
     };
 
     return Hand;

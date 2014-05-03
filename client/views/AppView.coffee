@@ -11,6 +11,8 @@ class window.AppView extends Backbone.View
     "click .stand-button": -> @model.get('playerHand').stand()
 
   initialize: ->
+    @model.on 'playerWins', => @gameEnd('wins')
+    @model.on 'playerLoses', => @gameEnd('loses')
     @render()
 
   render: ->
@@ -18,3 +20,8 @@ class window.AppView extends Backbone.View
     @$el.html @template()
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
+
+  gameEnd: (outcome) ->
+    @$el.append '<div>Game Over</div><div>Player '+outcome+'</div>'
+    $('.hit-button').attr('disabled', true)
+    $('.stand-button').attr('disabled', true)
