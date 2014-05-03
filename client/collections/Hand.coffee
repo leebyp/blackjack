@@ -26,6 +26,16 @@ class window.Hand extends Backbone.Collection
     , 0
     if hasAce then [score, score + 10] else [score]
 
+  printScores: ->
+    scoresarray = @scores()
+    score1 = scoresarray[0]
+    score2 = scoresarray[1]
+    if score2?
+      "#{score1} or #{score2}"
+    else 
+      "#{score1}"
+
+
   checkPlayer: ->
     if @scores()[0] > 21 then @trigger 'playerLoses', @
 
@@ -42,12 +52,3 @@ class window.Hand extends Backbone.Collection
       if 17 <= score <= 21
         @trigger 'checkGameOutcome',@
         return
-        
-
-
-    # for score in dealerScore
-    #   if score < 17 then @hit()
-    #   if 17 <= score <= 21
-    #     @trigger 'checkGameOutcome',@
-    #     console.log(1)
-    #   if score > 21 and length is 2 then @hit() else @trigger 'checkGameOutcome',@ 

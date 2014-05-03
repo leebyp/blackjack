@@ -45,6 +45,18 @@
       }
     };
 
+    Hand.prototype.printScores = function() {
+      var score1, score2, scoresarray;
+      scoresarray = this.scores();
+      score1 = scoresarray[0];
+      score2 = scoresarray[1];
+      if (score2 != null) {
+        return "" + score1 + " or " + score2;
+      } else {
+        return "" + score1;
+      }
+    };
+
     Hand.prototype.checkPlayer = function() {
       if (this.scores()[0] > 21) {
         return this.trigger('playerLoses', this);
