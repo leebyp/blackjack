@@ -18,7 +18,8 @@
     };
 
     Hand.prototype.hit = function() {
-      return this.add(this.deck.pop()).last();
+      this.add(this.deck.pop()).last();
+      return this.outcome();
     };
 
     Hand.prototype.scores = function() {
@@ -29,6 +30,9 @@
       score = this.reduce(function(score, card) {
         return score + (card.get('revealed') ? card.get('value') : 0);
       }, 0);
+      if (score > 21) {
+        return ['BUST'];
+      }
       if (hasAce) {
         return [score, score + 10];
       } else {
