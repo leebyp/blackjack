@@ -1,3 +1,5 @@
+# app view listen to user events, clicking on the buttons, and renders the outcome of the game
+
 class window.AppView extends Backbone.View
 
   template: _.template '

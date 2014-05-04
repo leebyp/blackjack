@@ -27,10 +27,3 @@
 		- LISTENS to: re-render when CARDMODEL changes (ie. the flip method is instantiated happens)
 	. HandView
 		- LISTENS to: re-render when HANDCOLLECTION add remove changes, renders revealed scores of hand from HAND.SCORES
-
-
-
-****************************************************************
-//. check the score on every HIT - if over 21, BUST => end of game
-. set the DEALERHAND revealed to TRUE, when player stands in APPMODEL
-. dealer deals continuously until over 17 && better than players score || self bust => end of game

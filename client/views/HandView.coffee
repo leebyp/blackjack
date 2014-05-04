@@ -1,3 +1,5 @@
+# hand view renders the score for each hand, with their respective cards
+
 class window.HandView extends Backbone.View
 
   className: 'hand'

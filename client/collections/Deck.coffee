@@ -1,3 +1,4 @@
+# deck collection instantiates randomized collection of cards with methods to deal initial cards
 class window.Deck extends Backbone.Collection
 
   model: Card

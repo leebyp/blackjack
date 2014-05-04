@@ -1,3 +1,4 @@
+# hand collection deals with hit method for extra cards, calculates score of hand, and performs logic for checking status of hand
 class window.Hand extends Backbone.Collection
 
   model: Card

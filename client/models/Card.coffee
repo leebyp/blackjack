@@ -1,3 +1,5 @@
+# individual card models with suitName, rankName, and revealed status
+
 class window.Card extends Backbone.Model
 
   initialize: (params) ->

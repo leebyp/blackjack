@@ -1,3 +1,5 @@
+# app model redirects most of the logic by triggering events, since it has access to the deck and hands of cards
+
 #todo: refactor to have a game beneath the outer blackjack model
 class window.App extends Backbone.Model
 
