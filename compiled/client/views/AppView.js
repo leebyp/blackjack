@@ -52,7 +52,7 @@
     };
 
     AppView.prototype.gameEnd = function(outcome) {
-      $('body').append('<div>Game Over</div><div>Player ' + outcome + '</div>');
+      $('body').prepend('<div id="gameover">Game Over: Player ' + outcome + '</div>');
       $('.hit-button').attr('disabled', true);
       return $('.stand-button').attr('disabled', true);
     };

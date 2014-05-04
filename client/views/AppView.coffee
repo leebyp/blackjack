@@ -24,6 +24,6 @@ class window.AppView extends Backbone.View
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 
   gameEnd: (outcome) ->
-    $('body').append '<div>Game Over</div><div>Player ' + outcome + '</div>'
+    $('body').prepend '<div id="gameover">Game Over: Player ' + outcome + '</div>'
     $('.hit-button').attr('disabled', true)
     $('.stand-button').attr('disabled', true)

@@ -18,10 +18,16 @@
     };
 
     Hand.prototype.hit = function() {
-      this.add(this.deck.pop()).last();
       if (this.isDealer != null) {
-        return this.checkDealer();
+        if (!this.first().get('revealed')) {
+          this.first().flip();
+          return this.checkDealer();
+        } else {
+          this.add(this.deck.pop()).last();
+          return this.checkDealer();
+        }
       } else {
+        this.add(this.deck.pop()).last();
         return this.checkPlayer();
       }
     };

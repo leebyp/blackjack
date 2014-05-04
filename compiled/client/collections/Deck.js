@@ -13,7 +13,12 @@
     Deck.prototype.model = Card;
 
     Deck.prototype.initialize = function() {
-      return this.add(_(_.range(0, 52)).shuffle().map(function(card) {
+      var _i, _results;
+      return this.add(_((function() {
+        _results = [];
+        for (_i = 0; _i < 52; _i++){ _results.push(_i); }
+        return _results;
+      }).apply(this)).shuffle().map(function(card) {
         return new Card({
           rank: card % 13,
           suit: Math.floor(card / 13)

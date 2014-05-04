@@ -5,10 +5,15 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    @add(@deck.pop()).last()
     if @isDealer?
-      @checkDealer()
+      if !@first().get('revealed')
+        @first().flip()
+        @checkDealer()
+      else
+        @add(@deck.pop()).last()
+        @checkDealer()
     else
+      @add(@deck.pop()).last()
       @checkPlayer()
 
   stand: ->
